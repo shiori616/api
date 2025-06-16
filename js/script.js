@@ -6,8 +6,14 @@ $("#send").on("click", function() {
     // 検索結果を表示するための要素を空にする
     $(".result").empty();
     // 入力キーワード
-    const key = document.getElementById("key").value
-    const url = "https://www.googleapis.com/books/v1/volumes?q=" + key
+    const key = document.getElementById("key").value;
+
+    if (key === "") {
+        alert("キーワードを入力してください");
+        return;
+    }
+
+    const url = "https://www.googleapis.com/books/v1/volumes?q=" + key;
     const result = document.querySelector(".result");
     $.ajax({
         url: url,
@@ -27,10 +33,14 @@ $("#send").on("click", function() {
                         <img src="${data.items[i].volumeInfo.imageLinks.thumbnail}" alt="表紙画像">
                     </div>
                     <div class="right-box">
-                        <p class="title">${data.items[i].volumeInfo.title}</p>
-                        <div class="title-box">    
-                            <p class="author">著：${data.items[i].volumeInfo.authors}</p>
-                            <p class="date">出版日：${data.items[i].volumeInfo.publishedDate}</p>
+                        <p class="title">
+                        <a href="${data.items[i].volumeInfo.infoLink}" target="_blank">
+                        ${data.items[i].volumeInfo.title}
+                        </a>
+                        </p>
+                        <div class="title-box">
+                            ${data.items[i].volumeInfo.authors ? `<p class="author">著：${data.items[i].volumeInfo.authors}</p>` : ''}
+                            ${data.items[i].volumeInfo.publishedDate ? `<p class="date">出版日：${data.items[i].volumeInfo.publishedDate}</p>` : ''}
                         </div>
                         <div class="description">${data.items[i].volumeInfo.description}</div>
                     </div> 
