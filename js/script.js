@@ -42,7 +42,7 @@ $("#send").on("click", function() {
                             ${data.items[i].volumeInfo.authors ? `<p class="author">著：${data.items[i].volumeInfo.authors}</p>` : ''}
                             ${data.items[i].volumeInfo.publishedDate ? `<p class="date">出版日：${data.items[i].volumeInfo.publishedDate}</p>` : ''}
                         </div>
-                        <div class="description">${data.items[i].volumeInfo.description}</div>
+                        <p class="description">${data.items[i].volumeInfo.description ? data.items[i].volumeInfo.description : '説明はありません。'}</p>
                     </div> 
                 </div>    
                 `;
